@@ -1,5 +1,6 @@
 import e from "express";
 const app = e();
+app.use(e.json())
 
 let phones = [
   {
@@ -53,6 +54,22 @@ app.delete('/api/persons/:id', (req, res) => {
   const id = Number(req.params.id)
   phones = phones.filter(p => p.id !== id)
   res.status(204).end()
+})
+
+app.post('/api/persons', (req, res) => {
+  const id = Math.floor(Math.random() * 1000)
+  const body = req.body
+  console.log(body, id);
+
+  const phone = {
+    id,
+    name: body.name,
+    number: body.number
+  }
+
+  phones = phones.concat(phone)
+
+  res.json(phone)
 })
 
 const PORT = 3001
