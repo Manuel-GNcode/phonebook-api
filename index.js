@@ -4,7 +4,12 @@ import morgan from "morgan";
 const app = e();
 
 app.use(e.json())
-app.use(morgan('tiny'))
+
+morgan.token('body', function getToken(req, res) {
+  return req.body ? JSON.stringify(req.body) : '-';
+});
+
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms - body: :body'))
 
 let phones = [
   {
