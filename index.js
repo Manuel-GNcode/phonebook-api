@@ -1,6 +1,10 @@
 import e from "express";
+import morgan from "morgan";
+
 const app = e();
+
 app.use(e.json())
+app.use(morgan('tiny'))
 
 let phones = [
   {
@@ -84,6 +88,11 @@ app.post('/api/persons', (req, res) => {
 
   res.json(phone)
 })
+
+const unkownEndpoint = (req, res) => {
+  res.status(404).send({ error: 'unknown endpoint' })
+}
+app.use(unkownEndpoint)
 
 const PORT = 3001
 app.listen(PORT, () => {
