@@ -5,6 +5,7 @@ import cors from "cors"
 const app = e();
 
 app.use(cors())
+app.use(e.static('dist'))
 app.use(e.json())
 
 morgan.token('body', function getToken(req, res) {
